@@ -1,5 +1,3 @@
-# Overview #
-
 ## About this test ##
 
 We have found that an applicant’s CV is not a good indicator of programming aptitude, so the eCargo development team has designed this test as a way to assess applicants.
