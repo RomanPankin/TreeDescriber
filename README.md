@@ -12,11 +12,6 @@ The requirements are deliberately open ended. You should have questions about th
 
 Please try to avoid including personally identifiable information in your code so we can review your code as impartially as possible.
 
-## How to get the test results to us ##
-
-Please create a private Git repository on bitbucket.org and push your work into this repository. Once you’re done, add hireme@ecargo.co.nz (eCargo Careers) as a user with Read permissions and email us at hireme@ecargo.co.nz to let us know you have completed the test.
-
-We would appreciate any feedback on the test process; if you wish, please include a feedback document in the Git repository with any feedback.
 
 ## Submission checklist ##
 
@@ -24,8 +19,6 @@ We would appreciate any feedback on the test process; if you wish, please includ
 2. A document containing questions you would’ve asked in the real world and any assumptions made.
 3. An optional suggestions / feedback document.
 4. All of the above committed to the private Bitbucket Git repository.
-5. hireme@ecargo.co.nz added to the repository with Read rights.
-6. Email sent to hireme@ecargo.co.nz to notify us that reviewing can commence.
 
 # The test #
 
