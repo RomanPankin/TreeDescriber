@@ -1,25 +1,3 @@
-## About this test ##
-
-We have found that an applicant’s CV is not a good indicator of programming aptitude, so the eCargo development team has designed this test as a way to assess applicants.
-
-## What we are looking at ##
-
-We are after the same style and quality of code as you would write at work on production code, so correctness and readability are important. At a minimum we expect unit tests (ideally written using TDD) and source code committed using Git. Each part of your implementation should be committed separately, resulting in a sensible commit history with detailed commit messages.
-
-You may use any testing framework. You should supply the implementation as a Visual Studio 2015 solution which we can easily run. You can use any third party libraries you require from NuGet. You need to use C#.
-
-The requirements are deliberately open ended. You should have questions about the requirements; assume a sensible answer and document the assumptions you make.
-
-Please try to avoid including personally identifiable information in your code so we can review your code as impartially as possible.
-
-
-## Submission checklist ##
-
-1. Visual Studio 2015 solution, written in C#, with unit tests, without any personally identifiable information.
-2. A document containing questions you would’ve asked in the real world and any assumptions made.
-3. An optional suggestions / feedback document.
-4. All of the above committed to the private Bitbucket Git repository.
-
 # The test #
 
 ## Description ##
