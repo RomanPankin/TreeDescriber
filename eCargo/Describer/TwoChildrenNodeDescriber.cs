@@ -19,41 +19,28 @@ namespace eCargo.Describer
         /// <param name="node">Source node</param>
         /// <param name="level">Nesting level</param>
         /// <returns>Resulting string</returns>
-        public override StringBuilder Describe(StringBuilder builder, Node node, int level)
+        public override void Describe(StringBuilder builder, Node node, int level)
         {
-            AddIntent(builder, level)
-                .Append("new TwoChildrenNode(\"")
-                .Append(node.Name)
-                .Append("\"");
-
+            INodeDescriber describer = NodeDescriberFactory.GetDescriber();
             Node firstChild = ((TwoChildrenNode)node).FirstChild;
             Node secondChild = ((TwoChildrenNode)node).SecondChild;
 
-            if (firstChild != null || secondChild != null)
+            this.AddIntent(builder, level);
+
+            builder.Append( $"new TwoChildrenNode(\"{node.Name}\"" );
+            if (firstChild != null)
             {
-                INodeDescriber describer = NodeDescriberFactory.GetDescriber();
-                level++;
-
-                builder.Append(",");
-
-                if (firstChild != null)
-                {
-                    builder.Append("\n");
-                    describer.Describe(builder, firstChild, level);
-                }
-
-                builder.Append(",");
-
-                if (secondChild != null)
-                {
-                    builder.Append("\n");
-                    describer.Describe(builder, secondChild, level);
-                }
+                builder.Append(",\n");
+                describer.Describe(builder, firstChild, level+1);
             }
 
-            builder.Append(")");
+            if (secondChild != null)
+            {
+                builder.Append(",\n");
+                describer.Describe(builder, secondChild, level+1);
+            }
 
-            return builder;
+            builder.Append( ")" );
         }
     }
 }

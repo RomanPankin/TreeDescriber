@@ -26,6 +26,6 @@ namespace eCargo.Describer
         /// <param name="node">Source node</param>
         /// <param name="level">Nesting level</param>
         /// <returns>Resulting string</returns>
-        StringBuilder Describe(StringBuilder builder, Node node, int level);
+        void Describe(StringBuilder builder, Node node, int level);
     }
 }

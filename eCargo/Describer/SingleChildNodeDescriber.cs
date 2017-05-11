@@ -19,23 +19,19 @@ namespace eCargo.Describer
         /// <param name="node">Source node</param>
         /// <param name="level">Nesting level</param>
         /// <returns>Resulting string</returns>
-        public override StringBuilder Describe(StringBuilder builder, Node node, int level)
+        public override void Describe(StringBuilder builder, Node node, int level)
         {
-            AddIntent(builder, level)
-                .Append("new SingleChildNode(\"")
-                .Append(node.Name)
-                .Append("\"");
-
             Node child = ((SingleChildNode)node).Child;
+
+            this.AddIntent(builder, level);
+
+            builder.Append( $"new SingleChildNode(\"{node.Name}\"");
             if (child != null)
             {
                 builder.Append(",\n");
                 NodeDescriberFactory.GetDescriber().Describe(builder, child, level + 1);
             }
-
             builder.Append(")");
-
-            return builder;
         }
     }
 }

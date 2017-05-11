@@ -12,15 +12,13 @@ namespace eCargo.Describer
     public class NodeDescriberFactory : INodeDescriber
     {
         private static NodeDescriberFactory globalFactory = new NodeDescriberFactory();
-        private static Dictionary<Type, INodeDescriber> nodeToDescriber = new Dictionary<Type, INodeDescriber>();
+        private static Dictionary<Type, INodeDescriber> nodeToDescriber = new Dictionary<Type, INodeDescriber>() {
+            { typeof(NoChildrenNode), new NoChildrenNodeDescriber() },
+            { typeof(SingleChildNode), new SingleChildNodeDescriber() },
+            { typeof(TwoChildrenNode), new TwoChildrenNodeDescriber() }
+        };
 
-        static NodeDescriberFactory()
-        {
-            RegisterDescriber(typeof(Node), new NodeDescriber());
-            RegisterDescriber(typeof(NoChildrenNode), new NoChildrenNodeDescriber());
-            RegisterDescriber(typeof(SingleChildNode), new SingleChildNodeDescriber());
-            RegisterDescriber(typeof(TwoChildrenNode), new TwoChildrenNodeDescriber());
-        }
+        private NodeDescriberFactory() { }
 
         /// <summary>
         /// Method returns factory that describes node of any type
@@ -32,33 +30,16 @@ namespace eCargo.Describer
         }
 
         /// <summary>
-        /// Method allows to add a match between node's type and node's description
-        /// </summary>
-        /// <param name="node">Node's type</param>
-        /// <param name="describer">Node's description</param>
-        public static void RegisterDescriber(Type node, INodeDescriber describer)
-        {
-            nodeToDescriber.Add(node, describer);
-        }
-
-        /// <summary>
-        /// Method returns node's description by the type
-        /// </summary>
-        /// <param name="node"></param>
-        /// <returns></returns>
-        private static INodeDescriber GetDescriberForNode(Type node)
-        {
-            return nodeToDescriber[node];
-        }
-
-        /// <summary>
         /// Method for describing the node
         /// </summary>
         /// <param name="node">Source node</param>
         /// <returns>Resulting string</returns>
         public string Describe(Node node)
         {
-            return Describe(new StringBuilder(), node, 0).ToString();
+            StringBuilder result = new StringBuilder();
+
+            Describe(result, node, 0);
+            return result.ToString();
         }
 
         /// <summary>
@@ -69,13 +50,15 @@ namespace eCargo.Describer
         /// <param name="node">Source node</param>
         /// <param name="level">Nesting level</param>
         /// <returns>Resulting string</returns>
-        public StringBuilder Describe(StringBuilder builder, Node node, int level)
+        public void Describe(StringBuilder builder, Node node, int level)
         {
+            if (node == null) return;
             if (builder == null) builder = new StringBuilder();
-            if (node == null) return builder;
 
-            INodeDescriber describer = GetDescriberForNode(node.GetType());
-            return describer.Describe(builder, node, level);
+            INodeDescriber describer = nodeToDescriber[ node.GetType() ];
+            if (describer == null) throw new Exception( "There is no describer for the node" );
+
+            describer.Describe(builder, node, level);
         }
     }
 }

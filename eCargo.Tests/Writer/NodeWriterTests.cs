@@ -13,6 +13,18 @@ namespace eCargo.Writer.Tests
     public class NodeWriterTests
     {
         [TestMethod()]
+        public async Task WriteEmpty()
+        {
+            var filePath = "test-tree-empty.txt";
+
+            INodeWriter implementation = new NodeWriter();
+            await implementation.WriteToFileAsync(null, filePath);
+
+            var result = File.ReadAllText(filePath);
+            Assert.AreEqual("", result);
+        }
+
+        [TestMethod()]
         public async Task WriteToFileAsyncTest()
         {
             var filePath = "test-tree.txt";
@@ -26,12 +38,13 @@ namespace eCargo.Writer.Tests
             await implementation.WriteToFileAsync(node, filePath);
 
             var result = File.ReadAllText(filePath);
-            Assert.AreEqual(result,
+            Assert.AreEqual(
                 "new SingleChildNode(\"root\",\n" +
                 "    new TwoChildrenNode(\"child1\",\n" +
                 "        new NoChildrenNode(\"leaf1\"),\n" +
                 "        new SingleChildNode(\"child2\",\n" +
-                "            new NoChildrenNode(\"leaf2\"))))"
+                "            new NoChildrenNode(\"leaf2\"))))",
+                result
             );
         }
     }

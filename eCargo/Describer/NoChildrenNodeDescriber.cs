@@ -19,14 +19,11 @@ namespace eCargo.Describer
         /// <param name="node">Source node</param>
         /// <param name="level">Nesting level</param>
         /// <returns>Resulting string</returns>
-        public override StringBuilder Describe(StringBuilder builder, Node node, int level)
+        public override void Describe(StringBuilder builder, Node node, int level)
         {
-            AddIntent(builder, level)
-                .Append("new NoChildrenNode(\"")
-                .Append(node.Name)
-                .Append("\")");
+            this.AddIntent(builder, level);
 
-            return builder;
+            builder.Append( $"new NoChildrenNode(\"{node.Name}\")" );
         }
     }
 }

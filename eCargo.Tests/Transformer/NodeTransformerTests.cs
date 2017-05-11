@@ -13,6 +13,16 @@ namespace eCargo.Transformer.Tests
     public class NodeDescriberTests
     {
         [TestMethod()]
+        public void TransformNull()
+        {
+            var transformer = new NodeTransformer();
+            var describer = NodeDescriberFactory.GetDescriber();
+            var node1 = transformer.Transform(null);
+
+            Assert.AreEqual("", describer.Describe(node1));
+        }
+
+        [TestMethod()]
         public void TransformNoChildrenTest()
         {
             var transformer = new NodeTransformer();
@@ -22,7 +32,7 @@ namespace eCargo.Transformer.Tests
                     new ManyChildrenNode("node1")
                 );
 
-            Assert.AreEqual(describer.Describe(node1), "new NoChildrenNode(\"node1\")");
+            Assert.AreEqual("new NoChildrenNode(\"node1\")", describer.Describe(node1));
         }
 
         [TestMethod()]
@@ -37,7 +47,7 @@ namespace eCargo.Transformer.Tests
                     })
                 );
 
-            Assert.AreEqual(describer.Describe(node1), "new SingleChildNode(\"node1\",\n    new NoChildrenNode(\"node2\"))");
+            Assert.AreEqual("new SingleChildNode(\"node1\",\n    new NoChildrenNode(\"node2\"))", describer.Describe(node1));
         }
 
         [TestMethod()]
@@ -53,7 +63,7 @@ namespace eCargo.Transformer.Tests
                     })
                 );
 
-            Assert.AreEqual(describer.Describe(node1), "new TwoChildrenNode(\"node1\",\n    new NoChildrenNode(\"node2\"),\n    new NoChildrenNode(\"node3\"))");
+            Assert.AreEqual("new TwoChildrenNode(\"node1\",\n    new NoChildrenNode(\"node2\"),\n    new NoChildrenNode(\"node3\"))", describer.Describe(node1));
         }
 
         [TestMethod()]
@@ -70,12 +80,13 @@ namespace eCargo.Transformer.Tests
                                 new ManyChildrenNode("leaf2"))))
                 );
 
-            Assert.AreEqual(describer.Describe(node1),
+            Assert.AreEqual(
                 "new SingleChildNode(\"root\",\n" +
                 "    new TwoChildrenNode(\"child1\",\n" +
                 "        new NoChildrenNode(\"leaf1\"),\n" +
                 "        new SingleChildNode(\"child2\",\n" +
-                "            new NoChildrenNode(\"leaf2\"))))"
+                "            new NoChildrenNode(\"leaf2\"))))",
+                describer.Describe(node1)
             );
         }
     }

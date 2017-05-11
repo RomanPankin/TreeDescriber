@@ -9,7 +9,7 @@ namespace eCargo.Describer
     /// <summary>
     /// Class that describes base node without children and name
     /// </summary>
-    public class NodeDescriber : INodeDescriber
+    public abstract class NodeDescriber : INodeDescriber
     {
         /// <summary>
         /// Indent that shows the nesting level of the node
@@ -23,7 +23,10 @@ namespace eCargo.Describer
         /// <returns>Resulting string</returns>
         public string Describe(Node node)
         {
-            return Describe(new StringBuilder(), node, 0).ToString();
+            StringBuilder result = new StringBuilder();
+            Describe(result, node, 0);
+
+            return result.ToString();
         }
 
         /// <summary>
@@ -34,10 +37,7 @@ namespace eCargo.Describer
         /// <param name="node">Source node</param>
         /// <param name="level">Nesting level</param>
         /// <returns>Resulting string</returns>
-        public virtual StringBuilder Describe(StringBuilder builder, Node node, int level)
-        {
-            return builder;
-        }
+        public abstract void Describe(StringBuilder builder, Node node, int level);
 
         /// <summary>
         /// Method which adds intent to the resulting string to show the nesting level
@@ -45,12 +45,10 @@ namespace eCargo.Describer
         /// <param name="builder"></param>
         /// <param name="level"></param>
         /// <returns></returns>
-        protected StringBuilder AddIntent(StringBuilder builder, int level)
+        protected void AddIntent(StringBuilder builder, int level)
         {
             for (int I = 0; I < level; I++)
                 builder.Append(LEVEL_INDENT);
-
-            return builder;
         }
     }
 }
