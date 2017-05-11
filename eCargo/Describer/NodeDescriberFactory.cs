@@ -49,11 +49,9 @@ namespace eCargo.Describer
         /// <param name="builder">Resulting string</param>
         /// <param name="node">Source node</param>
         /// <param name="level">Nesting level</param>
-        /// <returns>Resulting string</returns>
         public void Describe(StringBuilder builder, Node node, int level)
         {
-            if (node == null) return;
-            if (builder == null) builder = new StringBuilder();
+            if (node == null || builder == null) return;
 
             INodeDescriber describer = nodeToDescriber[ node.GetType() ];
             if (describer == null) throw new Exception( "There is no describer for the node" );

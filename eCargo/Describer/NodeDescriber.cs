@@ -23,6 +23,8 @@ namespace eCargo.Describer
         /// <returns>Resulting string</returns>
         public string Describe(Node node)
         {
+            if (node == null) return "";
+
             StringBuilder result = new StringBuilder();
             Describe(result, node, 0);
 
@@ -36,7 +38,6 @@ namespace eCargo.Describer
         /// <param name="builder">Resulting string</param>
         /// <param name="node">Source node</param>
         /// <param name="level">Nesting level</param>
-        /// <returns>Resulting string</returns>
         public abstract void Describe(StringBuilder builder, Node node, int level);
 
         /// <summary>
